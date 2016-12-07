@@ -15,6 +15,10 @@ window.onload=function(){
 				break;
 		}
 	});
+	let oTimer=null;
+	oTimer=setInterval(function(){
+		slider.next();
+	},3000);
 
 }
 function Slider(container,iData){
@@ -29,8 +33,6 @@ function Slider(container,iData){
 	o.prev=function(){
 		return picMove(false,container);
 	}
-	
-	// o.prev=function(){};
 	// o.to(page):function(page){};
 	return o;
 } 
@@ -82,23 +84,36 @@ function picMove(bool,container){
 	let tWidth=imgs[0].offsetWidth;
 	let speed=0;
 	if(bool){
-		speed=-5;
-	}else{
-		speed=5;
-	}
-	timer=setInterval(function(){
-			if(ruler>=tWidth){
-				clearInterval(timer);
-			}else{
-				for(let i=0;i<imgs.length;i++){
-					imgs[i].style.left=imgs[i].offsetLeft+speed+'px';
-					
+		timer=setInterval(function(){
+				if(ruler>=tWidth){
+					clearInterval(timer);
+				}else{
+					for(let i=0;i<imgs.length;i++){
+						if(imgs[i].offsetLeft<=-2*tWidth){
+							imgs[i].style.left=imgs[i].offsetLeft+imgs.length*tWidth+'px';
+						}
+						imgs[i].style.left=imgs[i].offsetLeft-5+'px';
+					}
+					ruler+=5;
 				}
-				//console.log(imgs[0].offsetLeft);
-				console.log(tWidth);
-				ruler+=5;
+		},3)
+	}else{
+		for(let i=0;i<imgs.length;i++){
+			if(imgs[i].offsetLeft>=3*tWidth){
+				imgs[i].style.left=imgs[i].offsetLeft-imgs.length*tWidth+'px';
 			}
-	},3)
+		}
+		timer=setInterval(function(){
+				if(ruler>=tWidth){
+					clearInterval(timer);
+				}else{
+					for(let i=0;i<imgs.length;i++){
+						imgs[i].style.left=imgs[i].offsetLeft+5+'px';
+					}
+					ruler+=5;
+				}
+		},3)
+	}
 }
 
 
