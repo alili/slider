@@ -2,7 +2,8 @@
 // slider.next();//下一页
 // slider.prev();//上一页
 // slider.to(2);//翻到第二页
-// var oTimer = null;
+// 需要有一个 id 为 slider 的 div ，window.onload 里面用
+// 需要提前把默认的margin，padding去掉= =
 window.onload = function () {
 	var slider=new Slider('#slider',{data:[{img:'imgs/round1.jpg',title:'1'},{img:'imgs/round2.jpg',title:'2'},{img:'imgs/round3.jpg',title:'3'},{img:'imgs/round4.jpg',title:'4'},{img:'imgs/round5.jpg',title:'5'}]});
 	document.addEventListener('click',function(event){
@@ -18,6 +19,8 @@ window.onload = function () {
 				let page=document.getElementById('text').value.trim();
 					slider.to(page);
 				break;
+			default:
+				return false;
 		}
 	});
 
